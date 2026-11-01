@@ -1,142 +1,274 @@
 # Dashboard Analisis Perkembangan COVID-19 Global Tahun 2020–2022
+
 **Ujian Tengah Semester (UTS) — Mata Kuliah Visualisasi Data**
 
----
+Dashboard interaktif untuk menganalisis perkembangan kasus COVID-19 di berbagai negara selama periode 22 Januari 2020 hingga 14 Mei 2022. Proyek ini menggunakan Python, Streamlit, Pandas, dan Plotly untuk menyajikan data epidemiologi dalam bentuk visualisasi yang informatif dan mudah dipahami.
+
+## 🌐 Akses Dashboard
+
+**Dashboard Online:**  
+https://dashboard-covid19-global-uts-jjhjphkik97kkvgjfghbs8.streamlit.app/
+
+**Repository GitHub:**  
+https://github.com/herlindaarts/dashboard-covid19-global-uts
+
+**Dataset Kaggle:**  
+https://www.kaggle.com/datasets/josephassaker/covid19-global-dataset
 
 ## 📌 Identitas Proyek
-- **Judul Proyek:** Dashboard Analisis Perkembangan COVID-19 Global Tahun 2020–2022
-- **Mata Kuliah:** Visualisasi Data
-- **Teknologi Utama:** Python, Streamlit, Pandas, Plotly, NumPy
-- **Dataset Utama:** `data/covid19_daily_clean.csv` (184.787 baris data harian)
-- **Dataset Pendukung:** `data/covid19_summary_clean.csv` (226 negara & pemetaan benua)
 
----
+| Keterangan | Informasi |
+|---|---|
+| Judul Proyek | Dashboard Analisis Perkembangan COVID-19 Global Tahun 2020–2022 |
+| Mata Kuliah | Visualisasi Data |
+| Nama Mahasiswa | Herlinda Artika Sari |
+| NIM | [241041011] |
+| Bahasa Pemrograman | Python |
+| Framework | Streamlit |
+| Library Visualisasi | Plotly |
+| Pengolahan Data | Pandas, NumPy |
+| Dataset Utama | 184.787 baris data harian |
+| Dataset Pendukung | 226 negara dan pemetaan benua |
 
-## 🌐 Sumber Dataset
-Dataset bersumber resmi dari Kaggle:
-- **Tautan Kaggle:** [COVID-19 Global Dataset by Joseph Assaker](https://www.kaggle.com/datasets/josephassaker/covid19-global-dataset)
-- **Sumber Data Asli:** Worldometer Coronavirus Tracking
-- **Rentang Waktu Data:** 22 Januari 2020 s.d. 14 Mei 2022
-- **Cakupan Wilayah:** 226 Negara dan Wilayah Teritori di 6 Benua
+## 📖 Latar Belakang
 
----
+COVID-19 merupakan pandemi global yang memberikan dampak besar terhadap berbagai aspek kehidupan masyarakat. Perkembangan kasus positif, angka kematian, dan kasus aktif berbeda-beda di setiap negara dan mengalami perubahan dari waktu ke waktu.
 
-## 📁 Struktur Direktori
+Banyaknya data yang tersedia membutuhkan proses pengolahan dan penyajian yang tepat agar informasi lebih mudah dipahami. Oleh karena itu, proyek ini dibuat untuk menyajikan perkembangan COVID-19 global melalui dashboard interaktif.
+
+Dashboard ini membantu pengguna melihat pola penyebaran COVID-19, membandingkan jumlah kasus antarnegara, mengetahui perkembangan kasus berdasarkan benua, serta memahami perubahan kasus dari waktu ke waktu.
+
+## 📊 Sumber dan Deskripsi Dataset
+
+Dataset diperoleh dari Kaggle:
+
+**COVID-19 Global Dataset — Joseph Assaker**
+
+Sumber data asli yang tercantum dalam dokumentasi proyek adalah Worldometer Coronavirus Tracking.
+
+| Informasi | Keterangan |
+|---|---|
+| Periode Data | 22 Januari 2020 – 14 Mei 2022 |
+| Jumlah Negara | 226 negara dan wilayah teritori |
+| Jumlah Benua | 6 benua |
+| Dataset Harian | 184.787 baris |
+| Dataset Ringkasan | 226 baris |
+
+Dataset utama berisi informasi perkembangan kasus harian, sedangkan dataset pendukung berisi data ringkasan negara dan pemetaan benua.
+
+### Variabel yang Digunakan
+
+- `date`: tanggal pencatatan data.
+- `country`: nama negara.
+- `cumulative_total_cases`: total kasus terkonfirmasi kumulatif.
+- `daily_new_cases`: penambahan kasus baru harian.
+- `active_cases`: jumlah kasus aktif.
+- `cumulative_total_deaths`: total kematian kumulatif.
+- `daily_new_deaths`: penambahan kematian harian.
+
+## 🗂️ Struktur Direktori Proyek
+
 ```text
 covid19_uts_dataset_rapi/
+│
 ├── data/
-│   ├── covid19_daily_clean.csv       # Dataset utama harian COVID-19 (184.787 baris)
-│   └── covid19_summary_clean.csv     # Dataset ringkasan dan pemetaan benua (226 negara)
-├── scripts/
-│   └── clean_data.py                 # Skrip otomasi pembersihan data awal
-├── app.py                            # Aplikasi utama Dashboard Streamlit
-├── requirements.txt                  # Daftar pustaka Python yang dibutuhkan
-├── README.md                         # Dokumentasi lengkap proyek UTS
-├── README_DATASET.md                 # Dokumentasi detail aturan pembersihan dataset
-└── LAPORAN_KUALITAS_DATA.json        # Laporan metrik kualitas dataset
+│   ├── covid19_daily_clean.csv
+│   └── covid19_summary_clean.csv
+│
+├── app.py
+├── requirements.txt
+├── README.md
+└── .gitignore
 ```
 
----
+Keterangan:
 
-## 🚀 Panduan Instalasi dan Cara Menjalankan
+- `data/`: menyimpan dataset yang telah melalui proses pembersihan.
+- `app.py`: program utama dashboard Streamlit.
+- `requirements.txt`: daftar library Python yang dibutuhkan.
+- `README.md`: dokumentasi proyek.
+- `.gitignore`: mengatur file yang tidak perlu dimasukkan ke GitHub.
 
-### 1. Prasyarat
-Pastikan sistem Anda telah terpasang **Python 3.9** atau versi lebih baru.
+## 🚀 Teknologi yang Digunakan
 
-### 2. Membuka Terminal / Command Prompt
-Buka terminal (PowerShell, Command Prompt, atau Bash) lalu navigasikan ke folder proyek:
+1. **Python** — bahasa pemrograman utama.
+2. **Streamlit** — framework untuk membangun dashboard interaktif.
+3. **Pandas** — mengolah dan menganalisis dataset.
+4. **NumPy** — membantu perhitungan numerik.
+5. **Plotly** — membuat grafik dan visualisasi interaktif.
+
+## 📈 Fitur Dashboard
+
+### 1. KPI Metric Cards
+
+Dashboard menyediakan empat indikator utama:
+
+- **Total Kasus Terkonfirmasi:** menampilkan jumlah kasus COVID-19 kumulatif.
+- **Total Kematian:** menampilkan jumlah kematian kumulatif.
+- **Case Fatality Rate (CFR):** menunjukkan perbandingan jumlah kematian terhadap jumlah kasus terkonfirmasi.
+- **Jumlah Negara Terpantau:** menunjukkan banyaknya negara yang masuk dalam filter aktif.
+
+### 2. Visualisasi Data
+
+Dashboard menyediakan empat jenis visualisasi utama:
+
+**A. Line Chart — Perkembangan Kasus COVID-19**
+
+Menampilkan perubahan jumlah kasus baru dari waktu ke waktu serta garis rata-rata bergerak selama tujuh hari (7-Day Moving Average).
+
+**B. Area Chart — Perkembangan Kasus Aktif**
+
+Menampilkan perubahan jumlah kasus aktif selama periode pandemi sehingga pengguna dapat melihat dinamika kasus aktif.
+
+**C. Horizontal Bar Chart — Negara dengan Kasus Tertinggi**
+
+Menampilkan peringkat negara berdasarkan jumlah kasus terkonfirmasi. Pengguna dapat mengatur jumlah negara yang ditampilkan melalui slider Top 5 hingga Top 25.
+
+**D. Donut/Pie Chart — Distribusi Kasus Berdasarkan Wilayah**
+
+Menampilkan perbandingan jumlah kasus berdasarkan benua. Ketika filter dipersempit ke satu benua, visualisasi dapat menampilkan perbandingan antarnegara di wilayah tersebut.
+
+### 3. Filter Interaktif
+
+Dashboard memiliki beberapa filter yang dapat digunakan untuk mengeksplorasi data:
+
+- **Filter Rentang Tanggal:** memilih periode analisis sesuai kebutuhan.
+- **Preset Periode:** memilih seluruh periode, tahun 2020, 2021, 2022, atau periode kustom.
+- **Filter Benua:** memilih wilayah berdasarkan benua.
+- **Filter Negara:** memilih satu atau beberapa negara tertentu.
+
+Seluruh filter digunakan untuk memperbarui informasi dan visualisasi sesuai pilihan pengguna.
+
+### 4. Ringkasan dan Insight
+
+Dashboard menyediakan ringkasan analisis berdasarkan data yang dipilih, meliputi:
+
+- Tanggal dengan lonjakan kasus harian tertinggi.
+- Negara dengan jumlah kasus terkonfirmasi terbesar.
+- Perbandingan tingkat fatalitas kasus (CFR).
+- Perkembangan jumlah kasus aktif.
+- Perubahan tren kasus berdasarkan periode yang dipilih.
+
+### 5. Eksplorasi dan Unduh Data
+
+Pengguna dapat melihat tabel data berdasarkan filter yang dipilih dan mengunduh data dalam format CSV untuk analisis lebih lanjut.
+
+## 🔬 Metodologi Pengolahan Data
+
+### 1. Penanganan Missing Values
+
+Dalam dataset ditemukan nilai kosong pada beberapa variabel, antara lain:
+
+- `daily_new_cases`: 10.458 nilai kosong.
+- `active_cases`: 18.040 nilai kosong.
+- `daily_new_deaths`: 26.937 nilai kosong.
+
+Nilai kosong tidak langsung diganti dengan angka nol karena nilai kosong tidak selalu menunjukkan bahwa tidak ada kasus atau kematian. Penanganan dilakukan dengan mempertahankan nilai NaN agar informasi asli tidak berubah secara sembarangan.
+
+### 2. Penanganan Nilai Negatif
+
+Ditemukan nilai negatif pada beberapa data kasus baru dan kematian baru.
+
+Nilai tersebut dipertahankan karena dapat mencerminkan koreksi retrospektif terhadap laporan sebelumnya. Dengan demikian, data tidak langsung dihapus hanya karena memiliki nilai negatif.
+
+### 3. Pencegahan Visualisasi Menyesatkan
+
+Beberapa pendekatan yang digunakan:
+
+- Sumbu grafik batang dimulai dari angka nol agar perbandingan lebih adil.
+- Penggunaan 7-Day Moving Average untuk membantu mengurangi fluktuasi pelaporan harian.
+- Filter tanggal dan wilayah digunakan agar analisis dapat dilakukan secara lebih terarah.
+
+## 💡 Temuan dan Insight Analisis
+
+Berikut bagian yang perlu diisi berdasarkan hasil pengamatan dan perhitungan pada dashboard:
+
+### 1. Puncak Kasus Harian
+
+Puncak lonjakan kasus harian COVID-19 global terjadi pada **21 Januari 2022**, yang merupakan periode gelombang Omicron. Pada periode tersebut terjadi peningkatan kasus harian yang sangat tinggi di berbagai negara.
+
+### 2. Negara dengan Kasus Tertinggi
+
+Berdasarkan visualisasi Bar Chart, **Amerika Serikat (USA)** merupakan negara dengan jumlah kasus COVID-19 terkonfirmasi tertinggi, yaitu sekitar **71.955.193 kasus**. Posisi berikutnya ditempati India dengan 38.903.731 kasus dan Brasil dengan 23.757.741 kasus.
+
+### 3. Perbandingan Antarbenua
+
+Berdasarkan visualisasi Pie Chart, **Eropa memiliki kontribusi kasus terkonfirmasi terbesar, yaitu 32,2%**. Selanjutnya, Asia menyumbang 27,1%, Amerika Utara 24,1%, Amerika Selatan sekitar 12,9%, Afrika 3,07%, dan Australia/Oseania 0,636%.
+
+Hasil ini menunjukkan bahwa Eropa memiliki proporsi kasus terkonfirmasi paling besar dibandingkan benua lainnya dalam visualisasi tersebut.
+
+### 4. Tingkat Fatalitas (CFR)
+
+Berdasarkan indikator dashboard, Case Fatality Rate (CFR) tercatat sebesar **1,21%**. Artinya, dari setiap 100 kasus COVID-19 terkonfirmasi, terdapat sekitar 1,21 kematian berdasarkan perbandingan jumlah kematian terhadap jumlah kasus.
+
+### 5. Perkembangan Kasus Aktif
+
+Perkembangan kasus aktif mengalami beberapa gelombang selama periode pengamatan. Peningkatan terlihat pada awal pandemi tahun 2020, kembali meningkat pada pertengahan tahun 2021 saat gelombang Delta, dan mengalami lonjakan besar pada awal tahun 2022 saat gelombang Omicron.
+
+## 🎨 Desain Dashboard
+
+Dashboard menggunakan desain modern dengan tampilan bersih dan profesional.
+
+Palet warna utama:
+
+| Warna | Kode |
+|---|---|
+| Navy | `#1E3A8A` |
+| Royal Blue | `#2563EB` |
+| Blue | `#1D4ED8` |
+| Light Blue | `#60A5FA` |
+| Background | `#F8FAFC` |
+| White | `#FFFFFF` |
+| Text | `#0F172A` |
+
+Desain dibuat agar informasi utama mudah dibaca, grafik terlihat jelas, dan pengguna dapat melakukan eksplorasi data dengan nyaman.
+
+## 💻 Cara Menjalankan Aplikasi Secara Lokal
+
+### 1. Persyaratan
+
+Pastikan Python versi 3.9 atau lebih baru telah terpasang.
+
+### 2. Clone Repository
+
 ```bash
-cd c:\Users\HERLINDA\Downloads\covid19_uts_dataset_rapi
+git clone https://github.com/herlindaarts/dashboard-covid19-global-uts.git
 ```
-*(atau masuk ke dalam sub-folder `covid19_uts_dataset_rapi`)*
 
-### 3. Instalasi Dependensi
-Jalankan perintah berikut untuk menginstal seluruh pustaka yang diperlukan:
+### 3. Masuk ke Folder Proyek
+
+```bash
+cd dashboard-covid19-global-uts
+```
+
+### 4. Instalasi Library
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Menjalankan Dashboard Streamlit
-Jalankan aplikasi menggunakan perintah resmi berikut:
+### 5. Jalankan Dashboard
+
 ```bash
 python -m streamlit run app.py
 ```
-*(atau dapat juga menggunakan `streamlit run app.py`)*
 
-### 5. Mengakses Dashboard
-Setelah perintah dijalankan, Streamlit akan membuka browser secara otomatis atau Anda dapat mengaksesnya secara manual melalui URL lokal:
+### 6. Buka Dashboard
+
+Akses alamat berikut melalui browser:
+
 ```text
 http://localhost:8501
 ```
 
----
+## 🎯 Tujuan Proyek
 
-## 📊 Penjelasan Fitur Dashboard
+Proyek ini dibuat sebagai bentuk penerapan materi Visualisasi Data, mulai dari pengolahan dataset sekunder, pembersihan data, analisis informasi, pembuatan visualisasi, hingga pengembangan dashboard interaktif.
 
-### 1. Panel KPI Metric Cards (Indikator Kinerja Utama)
-Dashboard menampilkan indikator metrik kartu modern dengan informasi dinamis:
-- **Total Kasus Terkonfirmasi (Kumulatif):** Jumlah total kasus terakumulasi hingga batas akhir tanggal yang dipilih, dilengkapi informasi penambahan kasus baru selama rentang waktu terpilih.
-- **Total Kematian (Kumulatif):** Akumulasi angka kematian akibat COVID-19, dilengkapi rincian kematian baru selama periode filter.
-- **Case Fatality Rate (CFR Estimasi):** Persentase rasio fatalitas kematian terhadap total kasus terkonfirmasi ($\frac{\text{Kematian}}{\text{Kasus}} \times 100\%$).
-- **Jumlah Negara Terpantau:** Total negara/wilayah yang masuk ke dalam filter aktif dari total 226 negara.
-
-### 2. Empat Jenis Visualisasi Interaktif
-1. **Line Chart (Perkembangan Kasus dari Waktu ke Waktu):**
-   - Menampilkan fluktuasi penambahan kasus harian (`daily_new_cases`) bersama kurva **7-Day Moving Average** (warna biru pekat `#1D4ED8`) untuk mereduksi *noise* pelaporan akhir pekan.
-   - Pengguna dapat beralih ke mode **Kasus Kumulatif** untuk melihat pertumbuhan total kasus secara berkelanjutan.
-2. **Area Chart (Perkembangan Kasus Aktif / Active Cases):**
-   - Menampilkan kurva berisi gradien biru halus (`rgba(37, 99, 235, 0.22)`) yang merefleksikan dinamika beban pasien yang sedang dalam perawatan atau isolasi aktif sepanjang waktu.
-   - Memperlihatkan secara jelas gelombang awal 2020, gelombang Delta pertengahan 2021, dan ledakan gelombang Omicron awal 2022.
-3. **Horizontal Bar Chart (Negara dengan Kasus Tertinggi):**
-   - Memvisualisasikan peringkat negara-negara dengan beban kasus terkonfirmasi terbesar.
-   - Dilengkapi *slider* interaktif untuk mengatur jumlah negara yang ingin ditampilkan (Top 5 hingga Top 25).
-   - Diurutkan dari yang tertinggi ke terendah dengan gradien warna biru dan label angka eksak.
-4. **Donut / Pie Chart (Perbandingan Kasus Berdasarkan Benua / Negara):**
-   - Mengelompokkan proporsi kasus berdasarkan benua (Asia, Eropa, Amerika Utara, Amerika Selatan, Afrika, Oseania).
-   - Apabila filter dipersempit ke satu benua, grafik secara dinamis menyesuaikan menjadi perbandingan pangsa kasus antar negara pada benua tersebut.
-
-### 3. Filter Interaktif Dinamis
-- **Filter Rentang Tanggal:** Kalender interaktif (`date_input`) yang dibatasi mulai 22 Januari 2020 hingga 14 Mei 2022.
-- **Preset Periode Cepat:** Shortcut pemilihan rentang waktu populer:
-  - *Seluruh Periode (2020 - 2022)*
-  - *Tahun 2020 (Awal Pandemi Global)*
-  - *Tahun 2021 (Gelombang Alpha & Delta)*
-  - *Tahun 2022 (Gelombang Omicron)*
-  - *Kustom (Pilihan Bebas)*
-- **Filter Wilayah Berdasarkan Benua:** Multi-select benua untuk mempersempit kelompok wilayah.
-- **Filter Negara Spesifik:** Memilih satu, beberapa, atau seluruh 226 negara yang tersedia. Seluruh filter saling memengaruhi grafik dan metrik KPI secara *real-time*.
-
-### 4. Kotak Ringkasan & Insight Dinamis
-Menghasilkan narasi analitis otomatis berdasarkan hasil perhitungan data riil:
-- **Puncak Lonjakan Kasus:** Menentukan tanggal pasti terjadinya lonjakan harian tertinggi serta angka kasus pada hari tersebut.
-- **Episentrum Kasus Terbesar:** Negara dengan jumlah kasus terkonfirmasi tertinggi serta persentase kontribusinya terhadap total filter.
-- **Analisis Tingkat Fatalitas:** Estimasi rata-rata CFR pada subset data.
-- **Dinamika Kasus Aktif:** Meninjau tren beban kasus aktif pada akhir periode (meningkat, menurun/fase pemulihan, atau stabil).
-
-### 5. Eksplorasi Data & Unduh CSV
-Tabel interaktif untuk melihat data mentah hasil penyaringan dan tombol unduh file CSV untuk kebutuhan analisis lanjutan.
+Diharapkan dashboard ini dapat membantu pengguna memahami perkembangan COVID-19 global melalui penyajian informasi yang lebih terstruktur, interaktif, dan mudah dipahami.
 
 ---
 
-## 🔬 Metodologi dan Integritas Penanganan Data
-
-### 1. Penanganan Missing Values (Nilai Kosong / NaN)
-- Berdasarkan hasil audit data (`LAPORAN_KUALITAS_DATA.json`), terdapat nilai kosong pada kolom `daily_new_cases` (10.458 baris), `active_cases` (18.040 baris), dan `daily_new_deaths` (26.937 baris).
-- **Prinsip Kejujuran Data:** Nilai kosong **tidak diganti secara otomatis menjadi nol**. Mengisi NaN menjadi 0 akan menciptakan bias serius, seolah-olah penularan atau kematian berhenti total pada hari tersebut.
-- Dashboard menggunakan agregasi `skipna=True` dan perhitungan kumulatif per negara berbasis observasi terakhir yang valid (*last valid observation*).
-
-### 2. Penanganan Nilai Negatif
-- Ditemukan sejumlah baris bernilai negatif pada kasus baru harian (20 baris) dan kematian baru (9 baris), contohnya pada El Salvador, Afghanistan, dan Jordan.
-- **Alasan Ilmiah Epidemiologi:** Nilai negatif dalam data resmi Worldometer/WHO merupakan **koreksi data retrospektif** (*retrospective adjustments*) oleh otoritas kesehatan pemerintah (misalnya pengeluaran kasus negatif palsu atau penghapusan catatan duplikat). Nilai ini dipertahankan agar tidak mendistorsi total kumulatif riil.
-
-### 3. Pencegahan Visualisasi Menyesatkan (Anti-Misleading Visuals)
-- Seluruh sumbu bar chart dimulai dari titik dasar 0 untuk mencegah distorsi persepsi perbandingan visual.
-- Indikator 7-Day Moving Average disediakan guna mereduksi bias pola pelaporan akhir pekan (*weekend reporting lag*).
-
----
-
-## 🎨 Desain dan Palet Warna
-Dashboard dirancang dengan pendekatan desain analitis modern dan bersih:
-- **Biru Primer (Navy & Royal Blue):** `#1E3A8A`, `#2563EB`, `#1D4ED8` (memberikan kesan kredibel, fokus, dan profesional).
-- **Biru Aksen & Cyan:** `#3B82F6`, `#60A5FA`, `#93C5FD` (untuk pembeda seri data sekunder dan visualisasi bergerak).
-- **Putih & Abu-abu Netral:** `#FFFFFF`, `#F8FAFC`, `#E2E8F0`, `#64748B`, `#0F172A` (menghadirkan kontras teks yang nyaman dibaca dan bebas gangguan visual).
+**Dibuat oleh Herlinda Artika Sari**  
+**Ujian Tengah Semester — Visualisasi Data**  
+**Tahun 2026**
