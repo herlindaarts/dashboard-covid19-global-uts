@@ -181,29 +181,27 @@ Beberapa pendekatan yang digunakan:
 
 ## 💡 Temuan dan Insight Analisis
 
-Berikut bagian yang perlu diisi berdasarkan hasil pengamatan dan perhitungan pada dashboard:
-
 ### 1. Puncak Kasus Harian
 
-Puncak lonjakan kasus harian COVID-19 global terjadi pada **21 Januari 2022**, yang merupakan periode gelombang Omicron. Pada periode tersebut terjadi peningkatan kasus harian yang sangat tinggi di berbagai negara.
+Berdasarkan grafik perkembangan kasus harian, lonjakan kasus COVID-19 global paling tinggi terlihat pada awal tahun 2022, bertepatan dengan gelombang Omicron. Pada periode tersebut, jumlah kasus harian meningkat tajam hingga mendekati 4 juta kasus sebelum mengalami penurunan.
 
 ### 2. Negara dengan Kasus Tertinggi
 
-Berdasarkan visualisasi Bar Chart, **Amerika Serikat (USA)** merupakan negara dengan jumlah kasus COVID-19 terkonfirmasi tertinggi, yaitu sekitar **71.955.193 kasus**. Posisi berikutnya ditempati India dengan 38.903.731 kasus dan Brasil dengan 23.757.741 kasus.
+Berdasarkan visualisasi Bar Chart, Amerika Serikat (USA) merupakan negara dengan jumlah kasus COVID-19 terkonfirmasi tertinggi. Berdasarkan grafik, USA mencatat sekitar 71.955.193 kasus, disusul India sebanyak 38.903.731 kasus dan Brasil sebanyak 23.757.741 kasus.
 
 ### 3. Perbandingan Antarbenua
 
-Berdasarkan visualisasi Pie Chart, **Eropa memiliki kontribusi kasus terkonfirmasi terbesar, yaitu 32,2%**. Selanjutnya, Asia menyumbang 27,1%, Amerika Utara 24,1%, Amerika Selatan sekitar 12,9%, Afrika 3,07%, dan Australia/Oseania 0,636%.
+Berdasarkan visualisasi Pie Chart, Eropa memiliki kontribusi kasus terkonfirmasi terbesar, yaitu 32,2%. Selanjutnya, Asia menyumbang 27,1%, Amerika Utara 24,1%, Amerika Selatan sekitar 12,9%, Afrika 3,07%, dan Australia/Oseania 0,636%.
 
-Hasil ini menunjukkan bahwa Eropa memiliki proporsi kasus terkonfirmasi paling besar dibandingkan benua lainnya dalam visualisasi tersebut.
+Hasil tersebut menunjukkan bahwa Eropa memiliki proporsi kasus terkonfirmasi paling besar dibandingkan benua lainnya.
 
 ### 4. Tingkat Fatalitas (CFR)
 
-Berdasarkan indikator dashboard, Case Fatality Rate (CFR) tercatat sebesar **1,21%**. Artinya, dari setiap 100 kasus COVID-19 terkonfirmasi, terdapat sekitar 1,21 kematian berdasarkan perbandingan jumlah kematian terhadap jumlah kasus.
+Berdasarkan indikator dashboard, Case Fatality Rate (CFR) tercatat sebesar 1,21%, dengan total 6.287.654 kematian dari 520.833.195 kasus terkonfirmasi. Artinya, terdapat sekitar 1,21 kematian untuk setiap 100 kasus terkonfirmasi berdasarkan rasio kumulatif tersebut.
 
 ### 5. Perkembangan Kasus Aktif
 
-Perkembangan kasus aktif mengalami beberapa gelombang selama periode pengamatan. Peningkatan terlihat pada awal pandemi tahun 2020, kembali meningkat pada pertengahan tahun 2021 saat gelombang Delta, dan mengalami lonjakan besar pada awal tahun 2022 saat gelombang Omicron.
+Grafik kasus aktif menunjukkan beberapa gelombang peningkatan selama pandemi. Lonjakan paling besar terlihat pada awal tahun 2022 saat gelombang Omicron, dengan jumlah kasus aktif mencapai hampir 60 juta. Setelah mencapai puncaknya, jumlah kasus aktif mengalami penurunan hingga akhir periode pengamatan.
 
 ## 🎨 Desain Dashboard
 
