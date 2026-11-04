@@ -1,6 +1,7 @@
 """
 Dashboard Analisis Perkembangan COVID-19 Global Tahun 2020–2022
 Ujian Tengah Semester (UTS) - Mata Kuliah Visualisasi Data
+Penyusun: HERLINDA ARTIKA SARI (NIM: 241041011) - D3 Manajemen Informatika
 Teknologi: Python, Streamlit, Pandas, Plotly
 """
 
@@ -14,152 +15,322 @@ import streamlit as st
 # 1. KONFIGURASI HALAMAN & TEMA STREAMLIT
 # ==============================================================================
 st.set_page_config(
-    page_title="Dashboard COVID-19 Global (2020–2022)",
-    page_icon="🦠",
+    page_title="COVID-19 Global Analytics (2020–2022) | UTS Visdat",
+    page_icon="🩺",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# Custom CSS untuk tema Biru, Putih, dan Abu-abu yang modern, rapi, dan responsif
+# Custom CSS: Tema Clean Corporate / Medical (Deep Navy, Slate Grey, Crisp White)
 st.markdown(
     """
     <style>
-    /* Background & Tipografi */
+    /* Import Google Font */
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+    /* Global Settings */
+    * {
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
     .stApp {
         background-color: #F8FAFC;
     }
-    h1, h2, h3, h4, h5, h6 {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        color: #0F172A;
-    }
     
-    /* Header Card */
-    .header-card {
-        background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 60%, #3B82F6 100%);
-        border-radius: 16px;
-        padding: 24px 30px;
-        color: #FFFFFF;
-        box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.22);
-        margin-bottom: 22px;
-    }
-    .header-title {
-        font-size: 1.85rem;
-        font-weight: 700;
-        margin-bottom: 8px;
-        letter-spacing: -0.02em;
-    }
-    .header-subtitle {
-        font-size: 0.96rem;
-        opacity: 0.94;
-        line-height: 1.5;
-        max-width: 950px;
-    }
-    .badge-tag {
-        display: inline-block;
-        background: rgba(255, 255, 255, 0.22);
-        padding: 4px 12px;
-        border-radius: 9999px;
-        font-size: 0.8rem;
-        font-weight: 500;
-        margin-right: 8px;
-        margin-top: 12px;
+    /* Hide default Streamlit padding on top slightly for a cleaner look */
+    .block-container {
+        padding-top: 1.8rem;
+        padding-bottom: 2.5rem;
     }
 
-    /* KPI Metric Cards */
-    .kpi-card {
-        background: #FFFFFF;
-        border: 1px solid #E2E8F0;
-        border-radius: 14px;
-        padding: 18px 20px;
-        box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        border-top: 4px solid #2563EB;
-        height: 100%;
+    /* Hero Header Card (Medical & Corporate Deep Navy) */
+    .hero-container {
+        background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 55%, #1D4ED8 100%);
+        border-radius: 18px;
+        padding: 30px 36px;
+        color: #FFFFFF;
+        box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.35);
+        margin-bottom: 24px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.12);
     }
-    .kpi-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 16px -2px rgba(15, 23, 42, 0.08);
+    .hero-container::after {
+        content: "";
+        position: absolute;
+        top: -40px;
+        right: -40px;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, rgba(255, 255, 255, 0) 70%);
+        border-radius: 50%;
+        pointer-events: none;
     }
-    .kpi-card-danger {
-        border-top-color: #475569;
+    .hero-title {
+        font-size: 1.95rem;
+        font-weight: 800;
+        margin-bottom: 6px;
+        letter-spacing: -0.025em;
+        line-height: 1.25;
+        color: #FFFFFF;
     }
-    .kpi-card-info {
-        border-top-color: #3B82F6;
+    .hero-subtitle {
+        font-size: 0.98rem;
+        color: #E2E8F0;
+        line-height: 1.55;
+        max-width: 980px;
+        margin-bottom: 14px;
     }
-    .kpi-card-accent {
-        border-top-color: #60A5FA;
+    .hero-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
     }
-    .kpi-label {
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(255, 255, 255, 0.14);
+        backdrop-filter: blur(8px);
+        padding: 5px 14px;
+        border-radius: 9999px;
         font-size: 0.8rem;
         font-weight: 600;
+        color: #F8FAFC;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+    }
+    .hero-badge-highlight {
+        background: #2563EB;
+        color: #FFFFFF;
+        border: 1px solid #60A5FA;
+    }
+
+    /* Student Identity Card in Sidebar */
+    .student-card {
+        background: linear-gradient(145deg, #0F172A 0%, #1E293B 100%);
+        border: 1px solid #334155;
+        border-radius: 14px;
+        padding: 18px 20px;
+        color: #F8FAFC;
+        margin-bottom: 18px;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    }
+    .student-badge-role {
+        display: inline-block;
+        background: #2563EB;
+        color: #FFFFFF;
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 3px 10px;
+        border-radius: 6px;
+        margin-bottom: 8px;
+    }
+    .student-name {
+        font-size: 1.05rem;
+        font-weight: 800;
+        color: #FFFFFF;
+        margin-bottom: 4px;
+        letter-spacing: -0.01em;
+    }
+    .student-meta {
+        font-size: 0.8rem;
+        color: #94A3B8;
+        line-height: 1.45;
+    }
+    .student-meta strong {
+        color: #E2E8F0;
+    }
+
+    /* Sidebar Section Headers */
+    .sidebar-section-title {
+        font-size: 0.86rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #475569;
+        letter-spacing: 0.06em;
+        margin-top: 14px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    /* KPI Cards (Modern Corporate / Medical Accent Styling) */
+    .kpi-wrapper {
+        background: #FFFFFF;
+        border-radius: 16px;
+        padding: 22px 20px;
+        box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
+        border: 1px solid #E2E8F0;
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+    }
+    .kpi-wrapper:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 24px -4px rgba(15, 23, 42, 0.12);
+    }
+    .kpi-indicator-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+    }
+    
+    /* Distinct Colors for KPI Cards */
+    .kpi-blue {
+        border-top: 4px solid #2563EB;
+        background: linear-gradient(180deg, rgba(37, 99, 235, 0.035) 0%, #FFFFFF 35%);
+    }
+    .kpi-red {
+        border-top: 4px solid #E11D48;
+        background: linear-gradient(180deg, rgba(225, 29, 72, 0.035) 0%, #FFFFFF 35%);
+    }
+    .kpi-amber {
+        border-top: 4px solid #D97706;
+        background: linear-gradient(180deg, rgba(217, 119, 6, 0.035) 0%, #FFFFFF 35%);
+    }
+    .kpi-teal {
+        border-top: 4px solid #0D9488;
+        background: linear-gradient(180deg, rgba(13, 148, 136, 0.035) 0%, #FFFFFF 35%);
+    }
+
+    .kpi-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+    }
+    .kpi-title {
+        font-size: 0.8rem;
+        font-weight: 700;
         color: #64748B;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        margin-bottom: 4px;
+    }
+    .kpi-icon-pill {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
     }
     .kpi-value {
-        font-size: 1.65rem;
+        font-size: 1.85rem;
         font-weight: 800;
         color: #0F172A;
-        line-height: 1.2;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        margin-bottom: 8px;
     }
-    .kpi-subtext {
+    .kpi-subtext-pill {
+        display: inline-block;
         font-size: 0.78rem;
-        color: #64748B;
-        margin-top: 6px;
+        font-weight: 600;
+        border-radius: 6px;
+        padding: 3px 8px;
+    }
+    .pill-blue {
+        background: #EFF6FF;
+        color: #1D4ED8;
+    }
+    .pill-red {
+        background: #FFF1F2;
+        color: #BE123C;
+    }
+    .pill-amber {
+        background: #FFFBEB;
+        color: #B45309;
+    }
+    .pill-teal {
+        background: #F0FDFA;
+        color: #0F766E;
     }
 
-    /* Chart Box Container */
+    /* Chart Box Containers */
     .chart-box {
         background: #FFFFFF;
         border: 1px solid #E2E8F0;
-        border-radius: 14px;
-        padding: 18px 20px 10px 20px;
-        box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04);
-        margin-bottom: 18px;
+        border-radius: 16px;
+        padding: 22px 22px 14px 22px;
+        box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+        margin-bottom: 20px;
+        transition: box-shadow 0.2s ease;
+    }
+    .chart-box:hover {
+        box-shadow: 0 8px 20px -2px rgba(15, 23, 42, 0.08);
+    }
+    .chart-header {
+        margin-bottom: 12px;
     }
     .chart-title {
-        font-size: 1.02rem;
-        font-weight: 700;
-        color: #1E293B;
-        margin-bottom: 3px;
+        font-size: 1.05rem;
+        font-weight: 750;
+        color: #0F172A;
+        letter-spacing: -0.015em;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
     .chart-desc {
-        font-size: 0.81rem;
+        font-size: 0.82rem;
         color: #64748B;
-        margin-bottom: 10px;
+        line-height: 1.45;
     }
 
-    /* Insight Narrative Box */
+    /* Insight Box (Medical & Corporate Alert) */
     .insight-box {
-        background: #EFF6FF;
+        background: linear-gradient(135deg, #F0FDF4 0%, #EFF6FF 100%);
         border-left: 5px solid #2563EB;
-        border-radius: 0 12px 12px 0;
-        padding: 18px 22px;
-        margin: 18px 0;
+        border-radius: 0 14px 14px 0;
+        padding: 22px 26px;
+        margin: 22px 0;
         border-top: 1px solid #DBEAFE;
         border-right: 1px solid #DBEAFE;
         border-bottom: 1px solid #DBEAFE;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.06);
     }
     .insight-title {
-        font-size: 1.02rem;
-        font-weight: 700;
+        font-size: 1.05rem;
+        font-weight: 800;
         color: #1E3A8A;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
     .insight-item {
-        font-size: 0.88rem;
+        font-size: 0.89rem;
         color: #1E293B;
-        line-height: 1.6;
-        margin-bottom: 6px;
+        line-height: 1.65;
+        margin-bottom: 8px;
     }
 
-    /* Footer */
-    .footer-text {
-        text-align: center;
+    /* Academic Footer */
+    .academic-footer {
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
+        border-radius: 14px;
+        padding: 20px 24px;
+        margin-top: 28px;
+        color: #64748B;
         font-size: 0.82rem;
-        color: #94A3B8;
-        padding: 24px 0 12px 0;
+        text-align: center;
+        line-height: 1.6;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+    }
+    .academic-footer strong {
+        color: #0F172A;
     }
     </style>
     """,
@@ -229,15 +400,21 @@ except Exception as e:
     st.stop()
 
 # ==============================================================================
-# 3. SIDEBAR: FILTER INTERAKTIF
+# 3. SIDEBAR: IDENTITAS MAHASISWA & FILTER INTERAKTIF
 # ==============================================================================
+
+# Kartu Identitas Mahasiswa di Sidebar
 st.sidebar.markdown(
     """
-    <div style='text-align: center; padding-bottom: 8px;'>
-        <h2 style='color:#1E3A8A; margin-bottom: 2px;'>📊 Panel Filter</h2>
-        <span style='font-size:0.82rem; color:#64748B;'>Konfigurasi Analisis COVID-19</span>
+    <div class="student-card">
+        <span class="student-badge-role">UTS Visualisasi Data</span>
+        <div class="student-name">HERLINDA ARTIKA SARI</div>
+        <div class="student-meta">
+            NIM: <strong>241041011</strong><br>
+            Prodi: <strong>D3 Manajemen Informatika</strong><br>
+            Tahun Ajaran: <strong>2026/2027</strong>
+        </div>
     </div>
-    <hr style='margin-top:0; margin-bottom:16px; border-color:#E2E8F0;'>
     """,
     unsafe_allow_html=True,
 )
@@ -245,7 +422,15 @@ st.sidebar.markdown(
 min_dataset_date = df_daily["date"].min().date()
 max_dataset_date = df_daily["date"].max().date()
 
-st.sidebar.markdown("### 📅 1. Filter Rentang Tanggal")
+# SECTION 1: FILTER RENTANG WAKTU
+st.sidebar.markdown(
+    """
+    <div class="sidebar-section-title">
+        <span>📅 1. Rentang Waktu Analisis</span>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 preset_option = st.sidebar.selectbox(
     "Pilihan Periode Cepat:",
@@ -290,8 +475,17 @@ else:
     start_date = default_start
     end_date = default_end
 
-st.sidebar.markdown("---")
-st.sidebar.markdown("### 🌍 2. Filter Wilayah & Negara")
+st.sidebar.markdown("<hr style='margin: 14px 0; border-color: #E2E8F0;'>", unsafe_allow_html=True)
+
+# SECTION 2: FILTER WILAYAH & NEGARA
+st.sidebar.markdown(
+    """
+    <div class="sidebar-section-title">
+        <span>🌍 2. Filter Wilayah & Negara</span>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 # Filter Benua
 all_continents = sorted(df_daily["continent"].unique().tolist())
@@ -313,7 +507,7 @@ available_countries = sorted(
 select_all_countries = st.sidebar.checkbox(
     "Pilih Semua Negara yang Tersedia",
     value=True,
-    help="Centang untuk menyertakan seluruh negara.",
+    help="Centang untuk menyertakan seluruh negara pada benua yang dipilih.",
 )
 
 if select_all_countries:
@@ -330,15 +524,16 @@ if not selected_countries:
     st.warning("Silakan pilih minimal satu negara pada sidebar filter untuk menampilkan visualisasi.")
     st.stop()
 
-# Info box di sidebar
+# Info Box Sumber Data di Sidebar
 with st.sidebar.expander("ℹ️ Sumber & Integritas Data", expanded=False):
     st.markdown(
         """
         - **Sumber:** [Kaggle COVID-19 Global Dataset](https://www.kaggle.com/datasets/josephassaker/covid19-global-dataset)
+        - **Data Asli:** Worldometer Coronavirus Tracking
         - **Rentang Asli:** 22 Jan 2020 – 14 Mei 2022
         - **Total Cakupan:** 226 Negara/Wilayah
-        - **Penanganan Missing Values:** Nilai kosong (NaN) dipertahankan sesuai format aslinya tanpa imputasi nol sembarangan.
-        - **Nilai Negatif:** Merefleksikan koreksi data retrospektif resmi dari otoritas kesehatan terkait.
+        - **Missing Values:** Nilai kosong (`NaN`) dipertahankan sesuai format aslinya tanpa imputasi nol sembarangan.
+        - **Nilai Negatif:** Merefleksikan koreksi data retrospektif resmi dari otoritas kesehatan dunia.
         """
     )
 
@@ -369,20 +564,21 @@ total_new_deaths_period = df_filtered["daily_new_deaths"].sum(skipna=True)
 cfr_rate = (total_deaths / total_confirmed_cases * 100) if total_confirmed_cases > 0 else 0.0
 
 # ==============================================================================
-# 5. HEADER DASHBOARD
+# 5. HERO HEADER DASHBOARD (Corporate & Academic Styling)
 # ==============================================================================
 st.markdown(
     f"""
-    <div class="header-card">
-        <div class="header-title">Dashboard Analisis Perkembangan COVID-19 Global Tahun 2020–2022</div>
-        <div class="header-subtitle">
-            Platform visualisasi interaktif untuk menganalisis perkembangan kasus terkonfirmasi, angka kematian, dinamika
-            kasus aktif, serta perbandingan regional secara objektif berbasis data Worldometer.
+    <div class="hero-container">
+        <div class="hero-title">Dashboard Analisis Perkembangan COVID-19 Global (2020–2022)</div>
+        <div class="hero-subtitle">
+            Platform intelijen data komprehensif untuk mengevaluasi dinamika kasus terkonfirmasi, mortalitas global, 
+            beban kasus aktif, serta perbandingan epidemiologi lintas wilayah berdasarkan data resmi Worldometer.
         </div>
-        <div>
-            <span class="badge-tag">🎓 UTS Visualisasi Data</span>
-            <span class="badge-tag">📅 Periode: {start_date.strftime('%d %b %Y')} – {end_date.strftime('%d %b %Y')}</span>
-            <span class="badge-tag">🌐 Cakupan: {count_countries:,} Negara Terpilih</span>
+        <div class="hero-badges">
+            <span class="hero-badge hero-badge-highlight">🩺 Visualisasi Data</span>
+            <span class="hero-badge">📅 Periode: {start_date.strftime('%d %b %Y')} – {end_date.strftime('%d %b %Y')}</span>
+            <span class="hero-badge">🌐 Cakupan: {count_countries:,} Negara Terpilih</span>
+            <span class="hero-badge">👤 HERLINDA ARTIKA SARI (241041011)</span>
         </div>
     </div>
     """,
@@ -390,17 +586,24 @@ st.markdown(
 )
 
 # ==============================================================================
-# 6. KPI METRIC CARDS (Minimal 3 KPI Cards)
+# 6. KPI METRIC CARDS (Clean Corporate & Medical Accent)
 # ==============================================================================
 kpi_col1, kpi_col2, kpi_col3, kpi_col4 = st.columns(4)
 
 with kpi_col1:
     st.markdown(
         f"""
-        <div class="kpi-card">
-            <div class="kpi-label">Total Terkonfirmasi</div>
-            <div class="kpi-value">{total_confirmed_cases:,.0f}</div>
-            <div class="kpi-subtext">+{total_new_cases_period:,.0f} kasus baru pada periode ini</div>
+        <div class="kpi-wrapper kpi-blue">
+            <div>
+                <div class="kpi-header">
+                    <span class="kpi-title">Total Terkonfirmasi</span>
+                    <div class="kpi-icon-pill" style="background: #EFF6FF; color: #2563EB;">🦠</div>
+                </div>
+                <div class="kpi-value">{total_confirmed_cases:,.0f}</div>
+            </div>
+            <div>
+                <span class="kpi-subtext-pill pill-blue">+{total_new_cases_period:,.0f} kasus pada periode ini</span>
+            </div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -409,10 +612,17 @@ with kpi_col1:
 with kpi_col2:
     st.markdown(
         f"""
-        <div class="kpi-card kpi-card-danger">
-            <div class="kpi-label">Total Kematian</div>
-            <div class="kpi-value">{total_deaths:,.0f}</div>
-            <div class="kpi-subtext">+{total_new_deaths_period:,.0f} kematian baru pada periode ini</div>
+        <div class="kpi-wrapper kpi-red">
+            <div>
+                <div class="kpi-header">
+                    <span class="kpi-title">Total Kematian</span>
+                    <div class="kpi-icon-pill" style="background: #FFF1F2; color: #E11D48;">✝️</div>
+                </div>
+                <div class="kpi-value" style="color: #BE123C;">{total_deaths:,.0f}</div>
+            </div>
+            <div>
+                <span class="kpi-subtext-pill pill-red">+{total_new_deaths_period:,.0f} kematian pada periode ini</span>
+            </div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -421,10 +631,17 @@ with kpi_col2:
 with kpi_col3:
     st.markdown(
         f"""
-        <div class="kpi-card kpi-card-info">
-            <div class="kpi-label">Case Fatality Rate (CFR)</div>
-            <div class="kpi-value">{cfr_rate:.2f}%</div>
-            <div class="kpi-subtext">Rasio kematian kumulatif terhadap kasus</div>
+        <div class="kpi-wrapper kpi-amber">
+            <div>
+                <div class="kpi-header">
+                    <span class="kpi-title">Case Fatality Rate (CFR)</span>
+                    <div class="kpi-icon-pill" style="background: #FFFBEB; color: #D97706;">⚠️</div>
+                </div>
+                <div class="kpi-value" style="color: #B45309;">{cfr_rate:.2f}%</div>
+            </div>
+            <div>
+                <span class="kpi-subtext-pill pill-amber">Rasio kematian kumulatif terhadap kasus</span>
+            </div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -433,22 +650,29 @@ with kpi_col3:
 with kpi_col4:
     st.markdown(
         f"""
-        <div class="kpi-card kpi-card-accent">
-            <div class="kpi-label">Jumlah Negara Terpantau</div>
-            <div class="kpi-value">{count_countries:,}</div>
-            <div class="kpi-subtext">Dari total 226 negara dalam basis data</div>
+        <div class="kpi-wrapper kpi-teal">
+            <div>
+                <div class="kpi-header">
+                    <span class="kpi-title">Negara Terpantau</span>
+                    <div class="kpi-icon-pill" style="background: #F0FDFA; color: #0D9488;">🌐</div>
+                </div>
+                <div class="kpi-value" style="color: #0F766E;">{count_countries:,}</div>
+            </div>
+            <div>
+                <span class="kpi-subtext-pill pill-teal">Dari total 226 negara dalam basis data</span>
+            </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
+st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
 
 # ==============================================================================
 # 7. VISUALISASI UTAMA (Minimal 4 Jenis Visualisasi Berbeda)
 # ==============================================================================
 
-# Agregasi harian untuk grafik deret waktu
+# Agregasi harian untuk deret waktu
 timeline_df = (
     df_filtered.groupby("date")
     .agg(
@@ -475,14 +699,16 @@ with col_vis1:
     st.markdown(
         """
         <div class="chart-box">
-            <div class="chart-title">📈 1. Line Chart: Perkembangan Kasus dari Waktu ke Waktu</div>
-            <div class="chart-desc">Menampilkan dinamika penambahan kasus harian beserta kurva 7-Day Moving Average untuk mengidentifikasi gelombang pandemi.</div>
+            <div class="chart-header">
+                <div class="chart-title">📈 1. Tren Perkembangan Kasus dari Waktu ke Waktu</div>
+                <div class="chart-desc">Fluktuasi harian dan kurva 7-Day Moving Average untuk menganalisis puncak gelombang transmisi.</div>
+            </div>
         """,
         unsafe_allow_html=True,
     )
 
     line_metric = st.radio(
-        "Pilih Jenis Data Tren:",
+        "Pilih Metrik Visualisasi Tren:",
         options=["Kasus Baru Harian (+ 7-Day MA)", "Kasus Kumulatif Terkonfirmasi"],
         horizontal=True,
         key="radio_line_metric",
@@ -498,7 +724,7 @@ with col_vis1:
                 mode="lines",
                 name="Kasus Harian",
                 line=dict(color="#93C5FD", width=1.2),
-                opacity=0.65,
+                opacity=0.60,
                 hovertemplate="<b>Tanggal:</b> %{x|%d %b %Y}<br><b>Kasus Harian:</b> %{y:,.0f}<extra></extra>",
             )
         )
@@ -508,7 +734,7 @@ with col_vis1:
                 y=timeline_df["cases_7d_ma"],
                 mode="lines",
                 name="7-Day Moving Average",
-                line=dict(color="#1D4ED8", width=2.8),
+                line=dict(color="#1D4ED8", width=3),
                 hovertemplate="<b>Tanggal:</b> %{x|%d %b %Y}<br><b>7-Day MA:</b> %{y:,.0f}<extra></extra>",
             )
         )
@@ -520,7 +746,9 @@ with col_vis1:
                 y=timeline_df["cumulative_total_cases"],
                 mode="lines",
                 name="Total Kasus Kumulatif",
-                line=dict(color="#1E3A8A", width=3),
+                line=dict(color="#0F172A", width=3.2),
+                fill="tozeroy",
+                fillcolor="rgba(15, 23, 42, 0.05)",
                 hovertemplate="<b>Tanggal:</b> %{x|%d %b %Y}<br><b>Kumulatif:</b> %{y:,.0f}<extra></extra>",
             )
         )
@@ -528,7 +756,7 @@ with col_vis1:
 
     fig_line.update_layout(
         template="plotly_white",
-        height=380,
+        height=385,
         margin=dict(l=15, r=15, t=10, b=15),
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
         xaxis=dict(
@@ -556,8 +784,10 @@ with col_vis2:
     st.markdown(
         """
         <div class="chart-box">
-            <div class="chart-title">🌊 2. Area Chart: Perkembangan Kasus Aktif</div>
-            <div class="chart-desc">Menggambarkan dinamika beban pasien yang sedang dirawat atau menjalani isolasi aktif sepanjang rentang waktu terpilih.</div>
+            <div class="chart-header">
+                <div class="chart-title">🌊 2. Dinamika Kasus Aktif (Active Cases)</div>
+                <div class="chart-desc">Beban pasien dalam perawatan atau isolasi aktif sepanjang rentang waktu terpilih.</div>
+            </div>
         """,
         unsafe_allow_html=True,
     )
@@ -569,16 +799,16 @@ with col_vis2:
             y=timeline_df["active_cases"],
             mode="lines",
             name="Kasus Aktif",
-            line=dict(color="#2563EB", width=2.2),
+            line=dict(color="#0284C7", width=2.4),
             fill="tozeroy",
-            fillcolor="rgba(37, 99, 235, 0.22)",
+            fillcolor="rgba(2, 132, 199, 0.20)",
             hovertemplate="<b>Tanggal:</b> %{x|%d %b %Y}<br><b>Kasus Aktif:</b> %{y:,.0f}<extra></extra>",
         )
     )
 
     fig_area.update_layout(
         template="plotly_white",
-        height=425,
+        height=430,
         margin=dict(l=15, r=15, t=10, b=15),
         xaxis=dict(
             title="",
@@ -587,7 +817,7 @@ with col_vis2:
             linecolor="#CBD5E1",
         ),
         yaxis=dict(
-            title="Jumlah Pasien Kasus Aktif",
+            title="Jumlah Pasien Aktif",
             showgrid=True,
             gridcolor="#F1F5F9",
             linecolor="#CBD5E1",
@@ -609,8 +839,10 @@ with col_vis3:
     st.markdown(
         """
         <div class="chart-box">
-            <div class="chart-title">📊 3. Bar Chart: Negara dengan Kasus Tertinggi</div>
-            <div class="chart-desc">Peringkat negara dengan akumulasi kasus terkonfirmasi terbesar dalam filter yang sedang aktif.</div>
+            <div class="chart-header">
+                <div class="chart-title">📊 3. Peringkat Negara Kasus Tertinggi (Top Ranking)</div>
+                <div class="chart-desc">Perbandingan akumulasi kasus terkonfirmasi terbesar dalam filter yang aktif.</div>
+            </div>
         """,
         unsafe_allow_html=True,
     )
@@ -638,8 +870,8 @@ with col_vis3:
                 color=top_countries_df["cumulative_total_cases"],
                 colorscale=[
                     [0.0, "#93C5FD"],
-                    [0.5, "#3B82F6"],
-                    [1.0, "#1E3A8A"],
+                    [0.4, "#3B82F6"],
+                    [1.0, "#0F172A"],
                 ],
                 showscale=False,
             ),
@@ -651,7 +883,7 @@ with col_vis3:
 
     fig_bar.update_layout(
         template="plotly_white",
-        height=400,
+        height=410,
         margin=dict(l=15, r=15, t=10, b=15),
         xaxis=dict(
             title="Total Kasus Terkonfirmasi",
@@ -675,8 +907,10 @@ with col_vis4:
     st.markdown(
         """
         <div class="chart-box">
-            <div class="chart-title">🍩 4. Pie Chart: Perbandingan Kasus Berdasarkan Benua</div>
-            <div class="chart-desc">Proporsi persebaran kasus terkonfirmasi antar benua atau antar negara terpilih secara proporsional.</div>
+            <div class="chart-header">
+                <div class="chart-title">🍩 4. Proporsi Kasus Berdasarkan Wilayah / Benua</div>
+                <div class="chart-desc">Persentase kontribusi kasus terkonfirmasi antar benua atau negara terpilih.</div>
+            </div>
         """,
         unsafe_allow_html=True,
     )
@@ -701,8 +935,8 @@ with col_vis4:
         cat_column = "country"
 
     custom_colors = [
-        "#1E3A8A", "#2563EB", "#3B82F6", "#60A5FA",
-        "#93C5FD", "#64748B", "#94A3B8", "#CBD5E1", "#475569"
+        "#0F172A", "#1E3A8A", "#2563EB", "#0284C7",
+        "#0D9488", "#64748B", "#94A3B8", "#CBD5E1", "#E2E8F0"
     ]
 
     fig_pie = go.Figure(
@@ -719,10 +953,10 @@ with col_vis4:
 
     fig_pie.update_layout(
         template="plotly_white",
-        height=450,
+        height=460,
         margin=dict(l=15, r=15, t=10, b=15),
         showlegend=True,
-        legend=dict(orientation="h", yanchor="bottom", y=-0.18, xanchor="center", x=0.5),
+        legend=dict(orientation="h", yanchor="bottom", y=-0.22, xanchor="center", x=0.5),
     )
     safe_plotly_chart(fig_pie)
     st.markdown("</div>", unsafe_allow_html=True)
@@ -761,10 +995,10 @@ st.markdown(
     f"""
     <div class="insight-box">
         <div class="insight-title">
-            <span>💡 Ringkasan Analisis & Insight Berdasarkan Data Aktual</span>
+            <span>💡 Ringkasan Analisis & Temuan Epidemiologis Berdasarkan Data Aktual</span>
         </div>
         <div class="insight-item">
-            • <b>Puncak Lonjakan Kasus:</b> Pada rentang filter terpilih, lonjakan penambahan kasus harian tertinggi terjadi pada 
+            • <b>Puncak Lonjakan Kasus:</b> Pada rentang filter terpilih, lonjakan penambahan kasus harian tertinggi tercatat pada 
             <b>{peak_date_str}</b> dengan pertambahan sebanyak <b>{peak_cases_val:,.0f} kasus baru</b> dalam satu hari.
         </div>
         <div class="insight-item">
@@ -774,7 +1008,7 @@ st.markdown(
         </div>
         <div class="insight-item">
             • <b>Tingkat Fatalitas Kasus (CFR):</b> Rata-rata rasio fatalitas kumulatif tercatat sebesar <b>{cfr_rate:.2f}%</b> 
-            (total <b>{total_deaths:,.0f} kematian</b> berbanding <b>{total_confirmed_cases:,.0f} kasus</b>).
+            (total <b>{total_deaths:,.0f} kematian</b> berbanding <b>{total_confirmed_cases:,.0f} kasus terkonfirmasi</b>).
         </div>
         <div class="insight-item">
             • <b>Dinamika Pasien Aktif:</b> Kurva kasus aktif pada fase akhir periode terpilih <b>{active_trend_desc}</b> 
@@ -835,13 +1069,14 @@ with st.expander("📋 Tabel Data Terfilter & Ekspor CSV", expanded=False):
     )
 
 # ==============================================================================
-# 11. FOOTER
+# 11. FOOTER AKADEMIS
 # ==============================================================================
 st.markdown(
     """
-    <div class="footer-text">
-        Proyek Ujian Tengah Semester (UTS) — Visualisasi Data Analisis COVID-19 Global (2020–2022)<br>
-        Dibangun menggunakan Python, Streamlit, Pandas, dan Plotly.
+    <div class="academic-footer">
+        <strong>Proyek Ujian Tengah Semester (UTS) — Mata Kuliah Visualisasi Data</strong><br>
+        Disusun oleh: <strong>HERLINDA ARTIKA SARI</strong> (NIM: <strong>241041011</strong>) — Program Studi <strong>D3 Manajemen Informatika</strong><br>
+        Sumber Data: <em>Worldometer Coronavirus Dataset via Kaggle</em> | Dibangun menggunakan Python, Streamlit, Pandas, dan Plotly.
     </div>
     """,
     unsafe_allow_html=True,

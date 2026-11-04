@@ -3,9 +3,12 @@
 
 ---
 
-## 📌 Identitas Proyek
+## 📌 Identitas Proyek & Mahasiswa
+- **Nama Mahasiswa:** HERLINDA ARTIKA SARI
+- **NIM:** 241041011
+- **Program Studi:** D3 Manajemen Informatika
+- **Mata Kuliah:** Visualisasi Data (Ujian Tengah Semester - UTS)
 - **Judul Proyek:** Dashboard Analisis Perkembangan COVID-19 Global Tahun 2020–2022
-- **Mata Kuliah:** Visualisasi Data
 - **Teknologi Utama:** Python, Streamlit, Pandas, Plotly, NumPy
 - **Dataset Utama:** `data/covid19_daily_clean.csv` (184.787 baris data harian)
 - **Dataset Pendukung:** `data/covid19_summary_clean.csv` (226 negara & pemetaan benua)
