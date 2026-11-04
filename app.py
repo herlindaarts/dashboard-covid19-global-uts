@@ -338,8 +338,166 @@ st.markdown(
 )
 
 
+st.markdown(
+    """
+    <style>
+    :root {
+        --space: #080D1B;
+        --sidebar: #111B32;
+        --panel: #151F36;
+        --cyan: #00E5FF;
+        --blue: #2563FF;
+        --purple: #A855F7;
+        --magenta: #D946EF;
+        --primary: #F8FAFC;
+        --muted: #94A3B8;
+        --line: rgba(148, 163, 184, 0.18);
+    }
+    html, body, [class*="css"], .stApp {
+        color: var(--primary);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .stApp, [data-testid="stAppViewContainer"] {
+        background: var(--space);
+    }
+    [data-testid="stHeader"] { background: rgba(8, 13, 27, 0.92); }
+    [data-testid="stSidebar"] {
+        background: var(--sidebar);
+        border-right: 1px solid var(--line);
+    }
+    [data-testid="stSidebar"] > div:first-child { background: var(--sidebar); }
+    .block-container { padding-top: 1.35rem; padding-bottom: 2rem; }
+    .brand-lockup {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 4px 0 18px;
+        padding: 4px 2px 14px;
+        border-bottom: 1px solid var(--line);
+    }
+    .brand-mark {
+        display: grid;
+        place-items: center;
+        width: 36px;
+        height: 36px;
+        flex: 0 0 36px;
+        border-radius: 8px;
+        border: 1px solid rgba(0, 229, 255, 0.3);
+        background: rgba(0, 229, 255, 0.1);
+        color: var(--cyan);
+        font-size: 0.76rem;
+        font-weight: 800;
+    }
+    .brand-copy strong, .brand-copy span { display: block; }
+    .brand-copy strong { color: var(--primary); font-size: 0.76rem; }
+    .brand-copy span { color: var(--muted); font-size: 0.64rem; }
+    .student-card {
+        background: linear-gradient(145deg, #172641, #10192D);
+        border: 1px solid rgba(0, 229, 255, 0.24);
+        border-radius: 8px;
+        box-shadow: 0 8px 26px rgba(0, 0, 0, 0.22);
+    }
+    .student-badge-role { background: rgba(0, 229, 255, 0.14); color: var(--cyan); }
+    .student-name, .student-meta strong { color: var(--primary); }
+    .sidebar-section-title { color: var(--cyan); }
+    .hero-container {
+        background: linear-gradient(110deg, #111B32 0%, #142744 70%, #1B1A3A 100%);
+        border: 1px solid rgba(0, 229, 255, 0.25);
+        border-radius: 8px;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25), 0 0 28px rgba(0, 229, 255, 0.06);
+    }
+    .hero-container::after { display: none; }
+    .hero-title { color: var(--primary); letter-spacing: 0; }
+    .hero-subtitle { color: var(--muted); }
+    .hero-badge {
+        background: rgba(8, 13, 27, 0.56);
+        border-color: var(--line);
+        border-radius: 6px;
+        color: #DCE7F5;
+    }
+    .hero-badge-highlight {
+        background: rgba(0, 229, 255, 0.12);
+        border-color: rgba(0, 229, 255, 0.34);
+        color: var(--cyan);
+    }
+    .kpi-wrapper, .chart-box, .insight-box, .academic-footer {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        color: var(--primary);
+    }
+    .kpi-wrapper { padding: 20px; }
+    .kpi-value { font-size: 1.15rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .kpi-sparkline { display: block; width: 100%; height: 24px; margin-top: 4px; opacity: 0.88; }
+    .kpi-blue { border-top-color: var(--cyan); background: linear-gradient(180deg, rgba(0, 229, 255, 0.08), var(--panel) 46%); }
+    .kpi-red { border-top-color: var(--magenta); background: linear-gradient(180deg, rgba(217, 70, 239, 0.08), var(--panel) 46%); }
+    .kpi-amber { border-top-color: var(--purple); background: linear-gradient(180deg, rgba(168, 85, 247, 0.08), var(--panel) 46%); }
+    .kpi-teal { border-top-color: var(--blue); background: linear-gradient(180deg, rgba(37, 99, 255, 0.08), var(--panel) 46%); }
+    .kpi-title { color: var(--muted); }
+    .kpi-value, .academic-footer strong { color: var(--primary) !important; }
+    .kpi-icon-pill { background: rgba(0, 229, 255, 0.1) !important; color: var(--cyan) !important; }
+    .kpi-subtext-pill { background: rgba(148, 163, 184, 0.1); color: #CBD5E1; }
+    .chart-title { color: var(--primary); letter-spacing: 0; }
+    .chart-desc, .academic-footer { color: var(--muted); }
+    .insight-box {
+        border-left: 3px solid var(--cyan);
+        background: linear-gradient(110deg, #151F36, #171D38);
+    }
+    .insight-title { color: var(--cyan); }
+    .insight-item { color: #CBD5E1; }
+    .academic-footer { text-align: left; }
+    [data-testid="stWidgetLabel"] p, [data-testid="stMarkdownContainer"] p,
+    [data-testid="stMarkdownContainer"] li, label { color: #CBD5E1; }
+    [data-testid="stSelectbox"] [data-baseweb="select"] > div,
+    [data-testid="stMultiSelect"] [data-baseweb="select"] > div,
+    [data-baseweb="input"] > div,
+    [data-testid="stDateInput"] input {
+        background-color: #0B1428 !important;
+        border-color: #2A3A56 !important;
+        color: var(--primary) !important;
+    }
+    [data-testid="stSelectbox"] [data-baseweb="select"] *,
+    [data-testid="stMultiSelect"] [data-baseweb="select"] *,
+    [data-testid="stDateInput"] input { color: var(--primary) !important; }
+    [data-testid="stSelectbox"] [role="group"],
+    [data-testid="stMultiSelect"] [role="group"] {
+        background-color: #0B1428 !important;
+        border-color: #2A3A56 !important;
+        color: var(--primary) !important;
+    }
+    [data-testid="stSelectbox"] input,
+    [data-testid="stMultiSelect"] input { color: var(--primary) !important; }
+    [data-testid="stSelectbox"] button,
+    [data-testid="stMultiSelect"] button { color: var(--muted) !important; }
+    [data-testid="stExpander"] {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+    }
+    [data-testid="stDataFrame"] { border: 1px solid var(--line); }
+    @media (max-width: 760px) {
+        .block-container { padding: 1rem 1rem 1.5rem; }
+        .hero-container { padding: 22px; }
+        .hero-title { font-size: 1.5rem; }
+        .kpi-value { font-size: 1.5rem; }
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+
 def safe_plotly_chart(fig):
     """Fungsi pembungkus render plotly chart untuk kompatibilitas lintas versi Streamlit."""
+    fig.update_layout(
+        template="plotly_dark",
+        paper_bgcolor="#151F36",
+        plot_bgcolor="#151F36",
+        font=dict(color="#CBD5E1", family="Plus Jakarta Sans"),
+    )
+    fig.update_xaxes(gridcolor="rgba(148, 163, 184, 0.12)", linecolor="rgba(148, 163, 184, 0.28)")
+    fig.update_yaxes(gridcolor="rgba(148, 163, 184, 0.12)", linecolor="rgba(148, 163, 184, 0.28)")
     try:
         st.plotly_chart(fig, width="stretch")
     except TypeError:
@@ -404,6 +562,19 @@ except Exception as e:
 # ==============================================================================
 
 # Kartu Identitas Mahasiswa di Sidebar
+st.sidebar.markdown(
+    """
+    <div class="brand-lockup">
+        <span class="brand-mark">GH</span>
+        <div class="brand-copy">
+            <strong>GLOBAL COVID-19</strong>
+            <span>INTELLIGENCE PLATFORM</span>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
 st.sidebar.markdown(
     """
     <div class="student-card">
@@ -563,22 +734,58 @@ total_new_deaths_period = df_filtered["daily_new_deaths"].sum(skipna=True)
 # Case Fatality Rate (CFR)
 cfr_rate = (total_deaths / total_confirmed_cases * 100) if total_confirmed_cases > 0 else 0.0
 
+kpi_history = (
+    df_filtered.groupby("date")
+    .agg(
+        confirmed=("cumulative_total_cases", "sum"),
+        deaths=("cumulative_total_deaths", "sum"),
+        countries=("country", "nunique"),
+    )
+    .reset_index()
+)
+kpi_history["cfr"] = (
+    kpi_history["deaths"] / kpi_history["confirmed"].replace(0, np.nan) * 100
+)
+
+
+def sparkline_svg(values, color):
+    values = pd.Series(values).dropna().tail(30).astype(float).tolist()
+    if len(values) < 2:
+        return ""
+    low, high = min(values), max(values)
+    span = high - low or 1
+    points = " ".join(
+        f"{index * 120 / (len(values) - 1):.1f},{25 - ((value - low) / span * 21):.1f}"
+        for index, value in enumerate(values)
+    )
+    return (
+        f'<svg class="kpi-sparkline" viewBox="0 0 120 28" role="img" '
+        f'aria-label="30-day trend"><polyline points="{points}" fill="none" '
+        f'stroke="{color}" stroke-width="2" stroke-linecap="round" '
+        f'stroke-linejoin="round"/></svg>'
+    )
+
+
+confirmed_sparkline = sparkline_svg(kpi_history["confirmed"], "#00E5FF")
+deaths_sparkline = sparkline_svg(kpi_history["deaths"], "#D946EF")
+cfr_sparkline = sparkline_svg(kpi_history["cfr"], "#A855F7")
+countries_sparkline = sparkline_svg(kpi_history["countries"], "#2563FF")
+
 # ==============================================================================
 # 5. HERO HEADER DASHBOARD (Corporate & Academic Styling)
 # ==============================================================================
 st.markdown(
     f"""
     <div class="hero-container">
-        <div class="hero-title">Dashboard Analisis Perkembangan COVID-19 Global (2020–2022)</div>
+        <div class="hero-title">COVID-19 GLOBAL INTELLIGENCE</div>
         <div class="hero-subtitle">
-            Platform intelijen data komprehensif untuk mengevaluasi dinamika kasus terkonfirmasi, mortalitas global, 
-            beban kasus aktif, serta perbandingan epidemiologi lintas wilayah berdasarkan data resmi Worldometer.
+            Global epidemiological insights and pandemic analysis across countries and regions (2020–2022).
         </div>
         <div class="hero-badges">
-            <span class="hero-badge hero-badge-highlight">🩺 Visualisasi Data</span>
-            <span class="hero-badge">📅 Periode: {start_date.strftime('%d %b %Y')} – {end_date.strftime('%d %b %Y')}</span>
-            <span class="hero-badge">🌐 Cakupan: {count_countries:,} Negara Terpilih</span>
-            <span class="hero-badge">👤 HERLINDA ARTIKA SARI (241041011)</span>
+            <span class="hero-badge hero-badge-highlight">GLOBAL HEALTH / ANALYTICS</span>
+            <span class="hero-badge">PERIOD · {start_date.strftime('%d %b %Y')} – {end_date.strftime('%d %b %Y')}</span>
+            <span class="hero-badge">COUNTRIES · {count_countries:,} monitored</span>
+            <span class="hero-badge">SOURCE · Worldometer / Kaggle</span>
         </div>
     </div>
     """,
@@ -596,10 +803,11 @@ with kpi_col1:
         <div class="kpi-wrapper kpi-blue">
             <div>
                 <div class="kpi-header">
-                    <span class="kpi-title">Total Terkonfirmasi</span>
+                    <span class="kpi-title">TOTAL CONFIRMED</span>
                     <div class="kpi-icon-pill" style="background: #EFF6FF; color: #2563EB;">🦠</div>
                 </div>
                 <div class="kpi-value">{total_confirmed_cases:,.0f}</div>
+                {confirmed_sparkline}
             </div>
             <div>
                 <span class="kpi-subtext-pill pill-blue">+{total_new_cases_period:,.0f} kasus pada periode ini</span>
@@ -615,10 +823,11 @@ with kpi_col2:
         <div class="kpi-wrapper kpi-red">
             <div>
                 <div class="kpi-header">
-                    <span class="kpi-title">Total Kematian</span>
+                    <span class="kpi-title">TOTAL DEATHS</span>
                     <div class="kpi-icon-pill" style="background: #FFF1F2; color: #E11D48;">✝️</div>
                 </div>
                 <div class="kpi-value" style="color: #BE123C;">{total_deaths:,.0f}</div>
+                {deaths_sparkline}
             </div>
             <div>
                 <span class="kpi-subtext-pill pill-red">+{total_new_deaths_period:,.0f} kematian pada periode ini</span>
@@ -634,10 +843,11 @@ with kpi_col3:
         <div class="kpi-wrapper kpi-amber">
             <div>
                 <div class="kpi-header">
-                    <span class="kpi-title">Case Fatality Rate (CFR)</span>
+                    <span class="kpi-title">CASE FATALITY RATE (CFR)</span>
                     <div class="kpi-icon-pill" style="background: #FFFBEB; color: #D97706;">⚠️</div>
                 </div>
                 <div class="kpi-value" style="color: #B45309;">{cfr_rate:.2f}%</div>
+                {cfr_sparkline}
             </div>
             <div>
                 <span class="kpi-subtext-pill pill-amber">Rasio kematian kumulatif terhadap kasus</span>
@@ -653,10 +863,11 @@ with kpi_col4:
         <div class="kpi-wrapper kpi-teal">
             <div>
                 <div class="kpi-header">
-                    <span class="kpi-title">Negara Terpantau</span>
+                    <span class="kpi-title">COUNTRIES MONITORED</span>
                     <div class="kpi-icon-pill" style="background: #F0FDFA; color: #0D9488;">🌐</div>
                 </div>
                 <div class="kpi-value" style="color: #0F766E;">{count_countries:,}</div>
+                {countries_sparkline}
             </div>
             <div>
                 <span class="kpi-subtext-pill pill-teal">Dari total 226 negara dalam basis data</span>
@@ -669,7 +880,117 @@ with kpi_col4:
 st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
 
 # ==============================================================================
-# 7. VISUALISASI UTAMA (Minimal 4 Jenis Visualisasi Berbeda)
+# 7. DISTRIBUSI GLOBAL: PETA CHOROPLETH DENGAN DATA PADA AKHIR FILTER
+# ==============================================================================
+world_filtered = df_daily[mask_date].copy()
+world_latest = world_filtered.sort_values("date").groupby("country").last().reset_index()
+global_confirmed_at_end = world_latest["cumulative_total_cases"].sum(skipna=True)
+map_df = latest_per_country.merge(
+    df_summary[["country", "total_recovered"]],
+    on="country",
+    how="left",
+)
+map_df["global_share_pct"] = (
+    map_df["cumulative_total_cases"] / global_confirmed_at_end * 100
+    if global_confirmed_at_end > 0 else 0
+)
+
+st.markdown(
+    """
+    <div class="chart-box">
+        <div class="chart-header">
+            <div class="chart-title">GLOBAL COVID-19 DISTRIBUTION</div>
+            <div class="chart-desc">Confirmed cases by country at the latest available observation in the selected date range. Hover for country-level detail.</div>
+        </div>
+    """,
+    unsafe_allow_html=True,
+)
+map_col, detail_col = st.columns([2.25, 1])
+with map_col:
+    recovered_hover = map_df["total_recovered"].map(
+        lambda value: f"{value:,.0f}" if pd.notna(value) else "Not reported"
+    )
+    map_customdata = map_df[[
+        "country", "cumulative_total_deaths", "active_cases", "global_share_pct"
+    ]].copy()
+    map_customdata["recovered_snapshot"] = recovered_hover
+    map_customdata = map_customdata.to_numpy()
+    map_figure = go.Figure(
+        go.Choropleth(
+            locations=map_df["country"],
+            locationmode="country names",
+            z=map_df["cumulative_total_cases"],
+            zmin=0,
+            zmax=max(1, map_df["cumulative_total_cases"].max()),
+            customdata=map_customdata,
+            colorscale=[
+                [0.0, "#13233C"], [0.18, "#0E7490"], [0.42, "#00E5FF"],
+                [0.66, "#2563FF"], [0.84, "#A855F7"], [1.0, "#D946EF"],
+            ],
+            marker_line_color="rgba(148, 163, 184, 0.42)",
+            marker_line_width=0.45,
+            colorbar=dict(
+                title=dict(text="Confirmed cases", font=dict(color="#CBD5E1")),
+                tickfont=dict(color="#94A3B8"),
+                outlinewidth=0,
+                thickness=12,
+            ),
+            hovertemplate=(
+                "<b>%{location}</b><br>Confirmed: %{z:,.0f}<br>"
+                "Deaths: %{customdata[1]:,.0f}<br>Active: %{customdata[2]:,.0f}<br>"
+                "Recovered (summary snapshot): %{customdata[4]}<br>"
+                "Share of global total: %{customdata[3]:.2f}%<extra></extra>"
+            ),
+        )
+    )
+    map_figure.update_geos(
+        projection_type="natural earth",
+        fitbounds="locations",
+        showframe=False,
+        showcoastlines=True,
+        coastlinecolor="rgba(148, 163, 184, 0.34)",
+        showcountries=True,
+        countrycolor="rgba(148, 163, 184, 0.28)",
+        showland=True,
+        landcolor="#111B32",
+        showocean=True,
+        oceancolor="#0B1428",
+        bgcolor="#151F36",
+    )
+    map_figure.update_layout(
+        height=470,
+        margin=dict(l=0, r=0, t=0, b=0),
+        paper_bgcolor="#151F36",
+        geo=dict(bgcolor="#151F36"),
+    )
+    safe_plotly_chart(map_figure)
+
+with detail_col:
+    default_map_country = map_df.sort_values(
+        "cumulative_total_cases", ascending=False
+    ).iloc[0]["country"]
+    map_country = st.selectbox(
+        "Country detail",
+        options=sorted(map_df["country"].tolist()),
+        index=sorted(map_df["country"].tolist()).index(default_map_country),
+        key="map_country_detail",
+    )
+    country_row = map_df.loc[map_df["country"] == map_country].iloc[0]
+    st.metric("Confirmed cases", f"{country_row['cumulative_total_cases']:,.0f}")
+    st.metric("Deaths", f"{country_row['cumulative_total_deaths']:,.0f}")
+    st.metric("Active cases", f"{country_row['active_cases']:,.0f}")
+    st.metric("Share of global cases", f"{country_row['global_share_pct']:.2f}%")
+    summary_row = df_summary.loc[df_summary["country"] == map_country]
+    if not summary_row.empty and pd.notna(summary_row.iloc[0]["total_recovered"]):
+        st.metric(
+            "Recovered · summary snapshot",
+            f"{summary_row.iloc[0]['total_recovered']:,.0f}",
+        )
+    st.caption("Recovered counts come from the separate 2022 summary file and are not date-filtered.")
+st.markdown("</div>", unsafe_allow_html=True)
+
+# ==============================================================================
+# 8. VISUALISASI UTAMA
 # ==============================================================================
 
 # Agregasi harian untuk deret waktu
@@ -961,9 +1282,44 @@ with col_vis4:
     safe_plotly_chart(fig_pie)
     st.markdown("</div>", unsafe_allow_html=True)
 
+st.markdown(
+    """
+    <div class="chart-box">
+        <div class="chart-header">
+            <div class="chart-title">DEATHS VS RECOVERED</div>
+            <div class="chart-desc">Country totals from the separate 2022 summary snapshot. This comparison follows the selected countries and continents, but is not date-filtered.</div>
+        </div>
+    """,
+    unsafe_allow_html=True,
+)
+summary_compare = df_summary[df_summary["country"].isin(selected_countries)].copy()
+summary_compare = summary_compare.dropna(subset=["total_deaths", "total_recovered"])
+summary_compare = summary_compare.nlargest(10, "total_confirmed").sort_values("total_confirmed")
+if summary_compare.empty:
+    st.info("No countries have both deaths and recovered totals in the summary snapshot.")
+else:
+    recovery_figure = go.Figure()
+    recovery_figure.add_trace(go.Bar(
+        y=summary_compare["country"], x=summary_compare["total_deaths"],
+        name="Deaths", orientation="h", marker_color="#D946EF",
+        hovertemplate="<b>%{y}</b><br>Deaths: %{x:,.0f}<extra></extra>",
+    ))
+    recovery_figure.add_trace(go.Bar(
+        y=summary_compare["country"], x=summary_compare["total_recovered"],
+        name="Recovered", orientation="h", marker_color="#00E5FF",
+        hovertemplate="<b>%{y}</b><br>Recovered: %{x:,.0f}<extra></extra>",
+    ))
+    recovery_figure.update_layout(
+        barmode="group", height=390, margin=dict(l=10, r=10, t=8, b=8),
+        xaxis_title="People", yaxis_title="Country",
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+    )
+    safe_plotly_chart(recovery_figure)
+st.markdown("</div>", unsafe_allow_html=True)
+
 
 # ==============================================================================
-# 8. INSIGHT & NARASI ANALITIS (Dihitung Dinamis dari Data Riil)
+# 9. INSIGHT & NARASI ANALITIS
 # ==============================================================================
 peak_idx = timeline_df["daily_new_cases"].idxmax()
 peak_row = timeline_df.loc[peak_idx]
@@ -1020,7 +1376,7 @@ st.markdown(
 )
 
 # ==============================================================================
-# 9. INTEGRITAS DATA & METODOLOGI
+# 10. INTEGRITAS DATA & METODOLOGI
 # ==============================================================================
 with st.expander("🔍 Catatan Metodologi, Missing Values, dan Integritas Angka", expanded=False):
     st.markdown(
@@ -1041,7 +1397,7 @@ with st.expander("🔍 Catatan Metodologi, Missing Values, dan Integritas Angka"
     )
 
 # ==============================================================================
-# 10. EKSPLORASI DATA & UNDUH CSV
+# 11. EKSPLORASI DATA & UNDUH CSV
 # ==============================================================================
 with st.expander("📋 Tabel Data Terfilter & Ekspor CSV", expanded=False):
     st.markdown("Berikut adalah sampel data harian sesuai dengan filter rentang tanggal dan negara yang aktif:")
@@ -1069,7 +1425,7 @@ with st.expander("📋 Tabel Data Terfilter & Ekspor CSV", expanded=False):
     )
 
 # ==============================================================================
-# 11. FOOTER AKADEMIS
+# 12. FOOTER AKADEMIS
 # ==============================================================================
 st.markdown(
     """
